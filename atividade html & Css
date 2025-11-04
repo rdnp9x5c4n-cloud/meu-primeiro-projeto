@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projeto CSS - Entrega II</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">Faculdade • Projeto</a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" id="navToggle">
+        <span class="hamburger"></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Navegação principal">
+        <ul class="nav-list">
+          <li><a href="#">Início</a></li>
+          <li class="has-submenu">
+            <a href="#" class="submenu-toggle">Projetos ▾</a>
+            <ul class="submenu">
+              <li><a href="#">Projeto A</a></li>
+              <li><a href="#">Projeto B</a></li>
+              <li><a href="#">Projeto C</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>Entrega II — Interface Responsiva e Acessível</h1>
+          <p>Aplicação de CSS3: design system, grid 12 colunas, flexbox, componentes, formulários e patterns acessíveis.</p>
+          <a class="btn primary" href="#projects">Ver Projetos</a>
+        </div>
+        <div class="hero-card">
+          <div class="card card-feature">
+            <h3>Resumo</h3>
+            <p>Sistema de design com variáveis, paleta de 8+ cores, tipografia hierárquica e espaçamento modular.</p>
+            <span class="badge">Acadêmico</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container projects-section">
+      <h2>Projetos</h2>
+      <div class="grid cards-grid">
+        <article class="card project-card">
+          <img src="img/projeto1.jpg" alt="Projeto 1 (thumbnail)" />
+          <div class="card-body">
+            <h3>Projeto 1</h3>
+            <p>Descrição do projeto, tecnologias usadas e resultados.</p>
+            <div class="card-actions">
+              <a class="btn" href="#">Detalhes</a>
+              <button class="btn secondary" onclick="showToast('Favoritos adicionados')">Favoritar</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <img src="img/projeto2.jpg" alt="Projeto 2 (thumbnail)" />
+          <div class="card-body">
+            <h3>Projeto 2</h3>
+            <p>Descrição do projeto, tecnologias usadas e resultados.</p>
+            <div class="card-actions">
+              <a class="btn" href="#">Detalhes</a>
+              <button class="btn secondary" onclick="openModal('#modalExample')">Abrir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <img src="img/projeto3.jpg" alt="Projeto 3 (thumbnail)" />
+          <div class="card-body">
+            <h3>Projeto 3</h3>
+            <p>Descrição do projeto, tecnologias usadas e resultados.</p>
+            <div class="card-actions">
+              <a class="btn" href="#">Detalhes</a>
+              <button class="btn secondary">Compartilhar</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="container contact-section">
+      <h2>Contato / Formulário</h2>
+      <form class="form-styled" novalidate>
+        <div class="form-row">
+          <label for="name">Nome</label>
+          <input id="name" name="name" type="text" required minlength="2" />
+          <small class="form-help">Insira seu nome completo.</small>
+        </div>
+
+        <div class="form-row">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" required />
+          <small class="form-help">Usado para contato.</small>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Mensagem</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <div class="form-row form-actions">
+          <button class="btn primary" type="submit">Enviar</button>
+          <button class="btn outline" type="reset">Limpar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modalExample" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Fechar" onclick="closeModal('#modalExample')">✕</button>
+      <h3 id="modalTitle">Exemplo de Modal</h3>
+      <p>Conteúdo do modal — pode ser usado para detalhes de projeto.</p>
+    </div>
+  </div>
+
+  <!-- Toast placeholder -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© Faculdade • Projeto • Entrega II</p>
+    </div>
+  </footer>
+
+  <script>
+    /* Scripts mínimos: menu, submenu, hamburger, modal e toast */
+    (function(){
+      const navToggle = document.getElementById('navToggle');
+      const mainNav = document.getElementById('main-nav');
+
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', String(!expanded));
+        mainNav.classList.toggle('open');
+      });
+
+      // submenu toggle (acessível)
+      document.querySelectorAll('.has-submenu > .submenu-toggle').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parent = btn.parentElement;
+          parent.classList.toggle('open-sub');
+        });
+      });
+
+      // modal helpers
+      window.openModal = (selector) => {
+        const el = document.querySelector(selector);
+        if(!el) return;
+        el.setAttribute('aria-hidden','false');
+        el.classList.add('open');
+      };
+      window.closeModal = (selector) => {
+        const el = document.querySelector(selector);
+        if(!el) return;
+        el.setAttribute('aria-hidden','true');
+        el.classList.remove('open');
+      };
+
+      // toast
+      window.showToast = (text, timeout=3000) => {
+        const t = document.getElementById('toast');
+        t.textContent = text;
+        t.classList.add('show');
+        clearTimeout(t._timeout);
+        t._timeout = setTimeout(()=> t.classList.remove('show'), timeout);
+      };
+
+      // simple form validation UI
+      document.querySelectorAll('.form-styled').forEach(form => {
+        form.addEventListener('submit', (e) => {
+          if(!form.checkValidity()){
+            e.preventDefault();
+            showToast('Preencha os campos correctly', 2500);
+            form.classList.add('was-validated');
+          } else {
+            e.preventDefault();
+            showToast('Formulário enviado (simulado)', 2000);
+            form.reset();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
