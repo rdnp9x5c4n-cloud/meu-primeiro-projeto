@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Meu primeiro projeto web com HTML, CSS e JavaScript." />
+  <title>Meu Primeiro Projeto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Bem-vindo ao Meu Primeiro Projeto</h1>
+    <nav>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sobre">
+      <h2>Sobre o Projeto</h2>
+      <p>Este projeto foi criado para aplicar os conhecimentos de HTML, CSS e JavaScript, com foco em boas práticas, acessibilidade e versionamento.</p>
+    </section>
+
+    <section id="funcionalidades">
+      <h2>Funcionalidades</h2>
+      <button id="botaoMensagem" aria-label="Clique para mostrar uma mensagem interativa">
+        Clique aqui
+      </button>
+      <p id="mensagem" class="oculto">🎉 Você clicou no botão! Parabéns por chegar até aqui! 🎉</p>
+    </section>
+
+    <section id="contato">
+      <h2>Contato</h2>
+      <form aria-label="Formulário de contato">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" required aria-required="true" />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Digite seu email" required aria-required="true" />
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 - Meu Primeiro Projeto | Desenvolvido por Erika</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
