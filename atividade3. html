@@ -1,0 +1,109 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #0077cc;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.logo {
+  width: 60px;
+  vertical-align: middle;
+}
+
+nav button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: white;
+  color: #0077cc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+nav button:hover {
+  background-color: #005fa3;
+  color: white;
+}
+
+main {
+  padding: 20px;
+  background: white;
+  margin: 20px;
+  border-radius: 8px;
+  min-height: 250px;
+}
+
+footer {
+  background-color: #0077cc;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+function navegar(pagina) {
+  const conteudo = document.getElementById("conteudo");
+
+  if (pagina === "home") {
+    conteudo.innerHTML = `
+      <h2>Bem-vindo à Página Inicial!</h2>
+      <p>Esta é uma aplicação simples feita com HTML, CSS e JavaScript para demonstrar uma SPA.</p>
+    `;
+  } 
+  else if (pagina === "sobre") {
+    conteudo.innerHTML = `
+      <h2>Sobre o Projeto</h2>
+      <p>Esta aplicação foi criada como parte da Atividade 3 da faculdade, com foco em JavaScript avançado.</p>
+    `;
+  } 
+  else if (pagina === "contato") {
+    conteudo.innerHTML = `
+      <h2>Fale Conosco</h2>
+      <form id="formContato">
+        <label>Nome:</label><br>
+        <input type="text" id="nome" placeholder="Digite seu nome"><br><br>
+
+        <label>E-mail:</label><br>
+        <input type="email" id="email" placeholder="Digite seu e-mail"><br><br>
+
+        <button type="button" onclick="verificarFormulario()">Enviar</button>
+      </form>
+      <p id="mensagem"></p>
+    `;
+  }
+}
+
+
+function verificarFormulario() {
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const mensagem = document.getElementById("mensagem");
+
+  if (nome === "" || email === "") {
+    mensagem.style.color = "red";
+    mensagem.textContent = "⚠️ Por favor, preencha todos os campos.";
+  } 
+  else if (!email.includes("@")) {
+    mensagem.style.color = "red";
+    mensagem.textContent = "⚠️ E-mail inválido. Verifique e tente novamente.";
+  } 
+  else {
+    mensagem.style.color = "green";
+    mensagem.textContent = "✅ Formulário enviado com sucesso!";
+    
+    // Exemplo de armazenamento local
+    localStorage.setItem("nomeUsuario", nome);
+    console.log("Nome salvo no localStorage:", nome);
+  }
+}
