@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Primeiro Projeto - Atividade 3</title>
+    <style>
+        /* ======= ESTILO GERAL ======= */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #0077cc;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            background-color: #005fa3;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        nav button {
+            background: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        nav button:hover {
+            background-color: #003f6b;
+            color: white;
+        }
+
+        main {
+            padding: 30px;
+            text-align: center;
+            min-height: 350px;
+        }
+
+        footer {
+            background-color: #0077cc;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        /* ======= FORMULÁRIO ======= */
+        form {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            text-align: left;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        form button {
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        form button:hover {
+            background-color: #005fa3;
+        }
+
+        .mensagem {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Meu Primeiro Projeto</h1>
+    </header>
+
+    <nav>
+        <button onclick="mostrarPagina('home')">Home</button>
+        <button onclick="mostrarPagina('sobre')">Sobre</button>
+        <button onclick="mostrarPagina('contato')">Contato</button>
+    </nav>
+
+    <main id="conteudo">
+        <h2>Home</h2>
+        <p>Esta é a página inicial. Aqui você pode navegar entre as seções e testar as funcionalidades em JavaScript criadas nesta atividade.</p>
+    </main>
+
+    <footer>
+        <p>© 2025 - Meu Primeiro Projeto | Desenvolvido por Erika</p>
+    </footer>
+
+    <script>
+        // ======= NAVEGAÇÃO ENTRE PÁGINAS =======
+        function mostrarPagina(pagina) {
+            const conteudo = document.getElementById("conteudo");
+
+            if (pagina === "home") {
+                conteudo.innerHTML = `
+                    <h2>Home</h2>
+                    <p>Bem-vindo(a) à página inicial do meu projeto! Aqui estou praticando manipulação do DOM com JavaScript.</p>
+                `;
+            } else if (pagina === "sobre") {
+                conteudo.innerHTML = `
+                    <h2>Sobre</h2>
+                    <p>Este projeto foi desenvolvido como parte da Atividade 3 da disciplina de Desenvolvimento Web.</p>
+                    <p>Utiliza HTML, CSS e JavaScript para criar uma interface dinâmica, com navegação simples e armazenamento local.</p>
+                `;
+            } else if (pagina === "contato") {
+                conteudo.innerHTML = `
+                    <h2>Contato</h2>
+                    <form id="formContato" onsubmit="enviarFormulario(event)">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" placeholder="Digite seu nome" required>
+                        
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                        <label for="mensagem">Mensagem:</label>
+                        <textarea id="mensagem" rows="4" placeholder="Escreva sua mensagem..." required></textarea>
+
+                        <button type="submit">Enviar</button>
+                    </form>
+                    <div class="mensagem" id="mensagemSucesso"></div>
+                `;
+            }
+        }
+
+        // ======= ENVIO DO FORMULÁRIO =======
+        function enviarFormulario(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const mensagem = document.getElementById("mensagem").value.trim();
+            const msgSucesso = document.getElementById("mensagemSucesso");
+
+            if (!nome || !email || !mensagem) {
+                msgSucesso.style.color = "red";
+                msgSucesso.textContent = "Por favor, preencha todos os campos.";
+                return;
+            }
+
+            // Armazena o nome no navegador
+            localStorage.setItem("nomeUsuario", nome);
+
+            msgSucesso.style.color = "green";
+            msgSucesso.textContent = `Obrigado, ${nome}! Sua mensagem foi enviada com sucesso.`;
+
+            document.getElementById("formContato").reset();
+        }
+
+        // ======= SAUDAÇÃO AUTOMÁTICA =======
+        window.onload = function() {
+            const nomeSalvo = localStorage.getItem("nomeUsuario");
+            if (nomeSalvo) {
+                document.getElementById("conteudo").innerHTML = `
+                    <h2>Bem-vindo(a) de volta, ${nomeSalvo}!</h2>
+                    <p>Que bom ver você novamente no site.</p>
+                `;
+            }
+        };
+    </script>
+</body>
+</html>
